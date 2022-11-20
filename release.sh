@@ -13,4 +13,4 @@ nim c \
 #     wapp_simple_nim_stats.nim
 strip -s ./wapp_simple_nim_stats
 upx --best ./wapp_simple_nim_stats
-gh release create `cat VERSION` wapp_simple_nim_stats
+gh release create `cat VERSION` -t `cat VERSION` -n "" wapp_simple_nim_stats

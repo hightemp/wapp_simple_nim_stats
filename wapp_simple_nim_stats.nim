@@ -51,6 +51,8 @@ proc main() =
 
     app.get("/", proc (req: Request) {.async.} =
         # respond "Hello World!"
+        echo "REQUEST: ", req.reqMethod, " ", req.url
+
         var sSVG = readFile("./badge.svg")
         sSVG = sSVG.replace("{NUMBER}", $iC)
         respond sSVG
