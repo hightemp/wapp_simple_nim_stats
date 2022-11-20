@@ -2,25 +2,26 @@ import asyncnet, asyncdispatch, httpcore, strutils, strformat, os
 import std/json
 import std/jsonutils
 import std/envvars
-import norm/[model, sqlite, pragmas]
+# import norm/[model, sqlite, pragmas]
 import std/tables
 import times
 import fastkiss
 import sugar
 import system/ansi_c
+import std/[db_sqlite, math]
 
 putEnv("PORT", getEnv("PORT", "9000"))
 putEnv("DB_HOST", getEnv("DB_HOST", "./db.sqlite.db"))
 putEnv("REMOTE_ADDR", getEnv("REMOTE_ADDR", "0.0.0.0"))
 
-type
-    HTTPRequest* = ref object of Model
-        date* {.unique.}: DateTime
-        ip*: string
-        env*: string
+# type
+#     HTTPRequest* = ref object of Model
+#         date* {.unique.}: DateTime
+#         ip*: string
+#         env*: string
 
-func newHTTPRequest*(date:DateTime, ip:string, env:string): HTTPRequest =
-    HTTPRequest(date: date, ip: ip, env: env)
+# func newHTTPRequest*(date:DateTime, ip:string, env:string): HTTPRequest =
+#     HTTPRequest(date: date, ip: ip, env: env)
 
 var iPort = getEnv("PORT").parseInt()
 
@@ -34,29 +35,46 @@ proc fnGetEnv(): Table[string, string] {.inline.} =
 
 # discard await 
 
-proc getCounter(
-    req: Request,
-    db: DbConn): Future[system.void] {.async.} =
+proc getCounter(req: Request) {.async.}  =
     echo "REQUEST: ", req.reqMethod, " ", req.url
 
-    req.response.headers["content-type"] = "image/svg+xml; charset=utf-8"
-    req.response.statusCode = Http200
+    try:
+        # var db = getDb()
 
-    # var aEnv = fnGetEnv()
-    # var sEnv = $(aEnv.toJson)
-    # echo "ENV: ", sEnv
+        req.response.headers["content-type"] = "image/svg+xml; charset=utf-8"
+        req.response.statusCode = Http200
 
-    # var iDateTime = now().utc
-    # var sRemoteAddr = aEnv["REMOTE_ADDR"]
-    # var oHTTPRequest = newHTTPRequest(iDateTime, sRemoteAddr, sEnv)
+        var aEnv = fnGetEnv()
+        var sEnv = $(aEnv.toJson)
+        echo "ENV: ", sEnv
 
-    # db.createTables(oHTTPRequest)
-    # db.insert(oHTTPRequest)
+        var iC: int64 = 0
 
-    # var iC = db.count(HTTPRequest)
-    var iC = 0 
+        var iDateTime = getTime().toUnix
+        var sRemoteAddr = aEnv["REMOTE_ADDR"]
+        # var oHTTPRequest = newHTTPRequest(iDateTime, sRemoteAddr, sEnv)
 
-    var sSVG = """
+        var sDBFile = getEnv("DB_HOST")
+        var db = open(sDBFile, "", "", "")
+
+        db.exec(sql"""CREATE TABLE IF NOT EXISTS visitors (
+                        id    INTEGER AUTOINCREMENT PRIMARY KEY,
+                        timestamp INTEGER NOT NULL,
+                        ip VARCHAR(50) NOT NULL,
+                        env_json VARCHAR(4000) NOT NULL,
+                    )""")
+
+        db.exec(sql"INSERT INTO visitors (timestamp, ip, env_json) VALUES (?, ?, ?)", 
+            $iDateTime, sRemoteAddr, sEnv)
+
+        # db.createTables(oHTTPRequest)
+        # db.insert(oHTTPRequest)
+
+        # iC = db.count(HTTPRequest)
+
+        iC = db.getValue(sql"SELECT COUNT(*) AS cnt FROM visitors").parseInt()
+
+        var sSVG = """
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="76" height="20" role="img" aria-label="statistics: {NUMBER}">
 <title>statistics: {NUMBER}</title>
 <linearGradient id="s" x2="0" y2="100%">
@@ -80,28 +98,31 @@ proc getCounter(
 </svg>
     """
 
-    sSVG = sSVG.replace("{NUMBER}", $iC)
-    sSVG.resp
+        sSVG = sSVG.replace("{NUMBER}", $iC)
+        # return req.resp(sSVG)
+        sSVG.resp
+    except:
+        echo "ERROR"
+        "ERROR".resp
+
+proc fnShowTestingPage(req: Request) {.async.} =
+    "<h1>TESTING</h1>".resp
 
 proc main() =
     let app = newApp()
     app.config.port = iPort
 
-    var db = getDb()
-
     addSignal(SIGINT, proc(fd: AsyncFD): bool =
         # asyncCheck 
-        close db
+        # close db
         app.close()
         echo "App shutdown completed! Bye-Bye Kisses :)"
         quit(QuitSuccess)
     )
 
-    app.get("/testing", proc (req: Request) {.async.} =
-        "TESTING".resp
-    )
+    app.get("/testing", fnShowTestingPage)
 
-    app.get("/", (req: Request) => req.getCounter(db))
+    app.get("/", getCounter)
 
     app.run()
 
