@@ -49,13 +49,16 @@ proc main() =
     let app = newApp()
     app.config.port = iPort
 
-    app.get("/", proc (req: Request) {.async.} =
-        # respond "Hello World!"
+    app.get("*", proc (req: Request) {.async.} =
         echo "REQUEST: ", req.reqMethod, " ", req.url
+
+        req.response.headers["content-type"] = "image/svg+xml; charset=utf-8"
+        req.response.statusCode = Http200
 
         var sSVG = readFile("./badge.svg")
         sSVG = sSVG.replace("{NUMBER}", $iC)
-        respond sSVG
+        # await respond sSVG
+        await req.respond(sSVG)
     )
 
     app.run()
