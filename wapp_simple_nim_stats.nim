@@ -27,23 +27,29 @@ type
 func newHTTPRequest*(date:DateTime, ip:string, env:string): HTTPRequest =
     HTTPRequest(date: date, ip: ip, env: env)
 
-var aEnv = initTable[string, string]()
-
-for sK,sV in envPairs():
-    aEnv[sK] = sV
-
 let db = getDb()
 
-var iDateTime = now().utc
-var sRemoteAddr = aEnv["REMOTE_ADDR"]
-var sJSON = $(aEnv.toJson)
-var oHTTPRequest = newHTTPRequest(iDateTime, sRemoteAddr, sJSON)
-
-db.createTables(oHTTPRequest)
-db.insert(oHTTPRequest)
-var iC = db.count(HTTPRequest)
-
 var iPort = getEnv("PORT").parseInt()
+
+proc fnGetEnv(): Table[string, string] {.inline.} =
+    var aEnv = initTable[string, string]()
+
+    for sK,sV in envPairs():
+        aEnv[sK] = sV
+
+    return aEnv
+
+proc fnAddRecord(req: Request) = 
+    var aEnv = fnGetEnv()
+    var sEnv = $(aEnv.toJson)
+    echo "ENV: ", sEnv
+
+    var iDateTime = now().utc
+    var sRemoteAddr = aEnv["REMOTE_ADDR"]
+    var oHTTPRequest = newHTTPRequest(iDateTime, sRemoteAddr, sEnv)
+
+    db.createTables(oHTTPRequest)
+    db.insert(oHTTPRequest)
 
 proc main() =
     let app = newApp()
@@ -58,6 +64,8 @@ proc main() =
 
         req.response.headers["content-type"] = "image/svg+xml; charset=utf-8"
         req.response.statusCode = Http200
+
+        var iC = db.count(HTTPRequest)
 
         var sSVG = """
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="76" height="20" role="img" aria-label="statistics: {NUMBER}">
@@ -82,7 +90,7 @@ proc main() =
     </g>
 </svg>
         """
-        
+
         sSVG = sSVG.replace("{NUMBER}", $iC)
         # await respond sSVG
         await req.respond(sSVG)
