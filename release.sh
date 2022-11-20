@@ -18,4 +18,7 @@ git add .
 git commit -am "`date` update"
 git push
 
-gh release create `cat VERSION` -t `cat VERSION` -n "" wapp_simple_nim_stats
+timestamp=$(date +%s)
+VERSION=$(echo `cat VERSION`.$timestamp)
+
+gh release create $VERSION -t $VERSION -n "" wapp_simple_nim_stats
