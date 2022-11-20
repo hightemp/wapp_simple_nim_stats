@@ -37,7 +37,7 @@ proc fnGetEnv(): Table[string, string] {.inline.} =
 
     return aEnv
 
-proc fnAddRecord(req: Request) = 
+proc fnAddRecord(req: Request): int = 
     var aEnv = fnGetEnv()
     var sEnv = $(aEnv.toJson)
     echo "ENV: ", sEnv
@@ -49,6 +49,10 @@ proc fnAddRecord(req: Request) =
     var db = getDb()
     db.createTables(oHTTPRequest)
     db.insert(oHTTPRequest)
+
+    var iC = db.count(HTTPRequest)
+
+    return iC
 
 proc main() =
     let app = newApp()
@@ -64,8 +68,7 @@ proc main() =
         req.response.headers["content-type"] = "image/svg+xml; charset=utf-8"
         req.response.statusCode = Http200
 
-        var db = getDb()
-        var iC = db.count(HTTPRequest)
+        var iC = fnAddRecord(req)
 
         var sSVG = """
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="76" height="20" role="img" aria-label="statistics: {NUMBER}">
