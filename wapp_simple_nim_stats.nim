@@ -27,8 +27,6 @@ type
 func newHTTPRequest*(date:DateTime, ip:string, env:string): HTTPRequest =
     HTTPRequest(date: date, ip: ip, env: env)
 
-let db = getDb()
-
 var iPort = getEnv("PORT").parseInt()
 
 proc fnGetEnv(): Table[string, string] {.inline.} =
@@ -48,6 +46,7 @@ proc fnAddRecord(req: Request) =
     var sRemoteAddr = aEnv["REMOTE_ADDR"]
     var oHTTPRequest = newHTTPRequest(iDateTime, sRemoteAddr, sEnv)
 
+    var db = getDb()
     db.createTables(oHTTPRequest)
     db.insert(oHTTPRequest)
 
@@ -65,6 +64,7 @@ proc main() =
         req.response.headers["content-type"] = "image/svg+xml; charset=utf-8"
         req.response.statusCode = Http200
 
+        var db = getDb()
         var iC = db.count(HTTPRequest)
 
         var sSVG = """
