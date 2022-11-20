@@ -1,5 +1,6 @@
+import asyncnet, asyncdispatch, httpcore, strutils, strformat, os
 import std/strformat
-import std/[strtabs, cgi]
+import std/strtabs
 import std/json
 import std/jsonutils
 import std/envvars
@@ -8,6 +9,12 @@ import norm/[model, sqlite, pragmas]
 import std/tables
 import times, os
 
+import fastkiss
+from fastkiss/utils import decodeData
+import regex
+from strformat import `&`
+
+putEnv("PORT", getEnv("PORT", "9000"))
 putEnv("DB_HOST", getEnv("DB_HOST", "./db.sqlite.db"))
 putEnv("REMOTE_ADDR", getEnv("REMOTE_ADDR", "0.0.0.0"))
 
@@ -34,13 +41,22 @@ var oHTTPRequest = newHTTPRequest(iDateTime, sRemoteAddr, sJSON)
 
 db.createTables(oHTTPRequest)
 db.insert(oHTTPRequest)
-
 var iC = db.count(HTTPRequest)
 
-var sSVG = readFile("./badge.svg")
+var iPort = getEnv("PORT").parseInt()
 
-sSVG = sSVG.replace("{NUMBER}", $iC)
+proc main() =
+    let app = newApp()
+    app.config.port = iPort
 
-write(stdout, "Content-type: image/svg+xml;charset=utf-8\n\n")
+    app.get("/", proc (req: Request) {.async.} =
+        # respond "Hello World!"
+        var sSVG = readFile("./badge.svg")
+        sSVG = sSVG.replace("{NUMBER}", $iC)
+        respond sSVG
+    )
 
-writeLine(stdout, sSVG)
+    app.run()
+
+main()
+
