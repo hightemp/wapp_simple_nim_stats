@@ -2,7 +2,6 @@ import asyncnet, asyncdispatch, httpcore, strutils, strformat, os
 import std/json
 import std/jsonutils
 import std/envvars
-# import norm/[model, sqlite, pragmas]
 import std/tables
 import times
 import fastkiss
@@ -12,53 +11,24 @@ import std/[db_sqlite, math]
 
 putEnv("PORT", getEnv("PORT", "9000"))
 putEnv("DB_HOST", getEnv("DB_HOST", "./db.sqlite.db"))
-# putEnv("REMOTE_ADDR", getEnv("REMOTE_ADDR", "0.0.0.0"))
-
-# type
-#     HTTPRequest* = ref object of Model
-#         date* {.unique.}: DateTime
-#         ip*: string
-#         env*: string
-
-# func newHTTPRequest*(date:DateTime, ip:string, env:string): HTTPRequest =
-#     HTTPRequest(date: date, ip: ip, env: env)
 
 var iPort = getEnv("PORT").parseInt()
 
-# proc fnGetEnv(): Table[string, string] {.inline.} =
-#     var aEnv = initTable[string, string]()
-
-#     for sK,sV in envPairs():
-#         aEnv[sK] = sV
-
-#     return aEnv
-
-# discard await 
-
 proc getCounter(req: Request) {.async.}  =
     try:
-        # var db = getDb()
-
         req.response.headers["content-type"] = "image/svg+xml; charset=utf-8"
         req.response.headers["cache-control"] = "max-age=0, no-cache, no-store, must-revalidate"
         req.response.statusCode = Http200
 
         var sJson = $(req.headers.toJson)
-        echo sJson
-        # var aEnv = fnGetEnv()
-        # var sEnv = $(aEnv.toJson)
-        # echo "ENV: ", sEnv
-
+                                
         var iC: int64 = 0
 
         var iDateTime = getTime().toUnix
-        # var sRemoteAddr = aEnv["REMOTE_ADDR"]
-        var sRemoteAddr = req.headers["X-Real-IP"]
+        var sRemoteAddr = req.headers["remote_addr"]
 
         echo "[", getTime().utc, "][", sRemoteAddr , "] ", req.reqMethod
-
-        # var oHTTPRequest = newHTTPRequest(iDateTime, sRemoteAddr, sEnv)
-
+        
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
@@ -71,12 +41,7 @@ proc getCounter(req: Request) {.async.}  =
 
         db.exec(sql"INSERT INTO visitors (timestamp, ip, env_json) VALUES (?, ?, ?)", 
             $iDateTime, sRemoteAddr, sJson)
-
-        # db.createTables(oHTTPRequest)
-        # db.insert(oHTTPRequest)
-
-        # iC = db.count(HTTPRequest)
-
+        
         iC = db.getValue(sql"SELECT COUNT(*) AS cnt FROM visitors").parseInt()
 
         var sSVG = """
@@ -108,10 +73,9 @@ proc getCounter(req: Request) {.async.}  =
         var sNumber = sFormat[0..(sFormat.len - sC.len - 1)] & sC
 
         sSVG = sSVG.replace("{NUMBER}", sNumber)
-        # return req.resp(sSVG)
         sSVG.resp
-    except:
-        echo "ERROR"
+    except Exception:
+        echo "ERROR: " & $(Exception)
         "ERROR".resp
 
 proc main() =
@@ -119,8 +83,6 @@ proc main() =
     app.config.port = iPort
 
     addSignal(SIGINT, proc(fd: AsyncFD): bool =
-        # asyncCheck 
-        # close db
         app.close()
         echo "App shutdown completed! Bye-Bye Kisses :)"
         quit(QuitSuccess)
