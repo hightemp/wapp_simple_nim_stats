@@ -58,10 +58,10 @@ proc getCounter(req: Request) {.async.}  =
         var db = open(sDBFile, "", "", "")
 
         db.exec(sql"""CREATE TABLE IF NOT EXISTS visitors (
-                        id    INTEGER AUTOINCREMENT PRIMARY KEY,
+                        id    INTEGER PRIMARY KEY AUTOINCREMENT,
                         timestamp INTEGER NOT NULL,
                         ip VARCHAR(50) NOT NULL,
-                        env_json VARCHAR(4000) NOT NULL,
+                        env_json VARCHAR(4000) NOT NULL
                     )""")
 
         db.exec(sql"INSERT INTO visitors (timestamp, ip, env_json) VALUES (?, ?, ?)", 
