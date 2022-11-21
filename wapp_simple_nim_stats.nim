@@ -42,6 +42,7 @@ proc getCounter(req: Request) {.async.}  =
         # var db = getDb()
 
         req.response.headers["content-type"] = "image/svg+xml; charset=utf-8"
+        req.response.headers["cache-control"] = "max-age=0, no-cache, no-store, must-revalidate"
         req.response.statusCode = Http200
 
         var aEnv = fnGetEnv()
