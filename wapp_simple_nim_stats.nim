@@ -100,7 +100,11 @@ proc getCounter(req: Request) {.async.}  =
 </svg>
     """
 
-        sSVG = sSVG.replace("{NUMBER}", $iC)
+        var sC = $iC
+        var sFormat = "000000"
+        var sNumber = sFormat[0..(sFormat.len - sC.len - 1)] & sC
+        
+        sSVG = sSVG.replace("{NUMBER}", sNumber)
         # return req.resp(sSVG)
         sSVG.resp
     except:
