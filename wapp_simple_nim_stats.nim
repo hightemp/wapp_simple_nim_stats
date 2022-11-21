@@ -36,8 +36,6 @@ proc fnGetEnv(): Table[string, string] {.inline.} =
 # discard await 
 
 proc getCounter(req: Request) {.async.}  =
-    echo "REQUEST: ", req.reqMethod, " ", req.url
-
     try:
         # var db = getDb()
 
@@ -47,12 +45,15 @@ proc getCounter(req: Request) {.async.}  =
 
         var aEnv = fnGetEnv()
         var sEnv = $(aEnv.toJson)
-        echo "ENV: ", sEnv
+        # echo "ENV: ", sEnv
 
         var iC: int64 = 0
 
         var iDateTime = getTime().toUnix
         var sRemoteAddr = aEnv["REMOTE_ADDR"]
+
+        echo "[", getTime().utc, "][", sRemoteAddr , "] ", req.reqMethod
+
         # var oHTTPRequest = newHTTPRequest(iDateTime, sRemoteAddr, sEnv)
 
         var sDBFile = getEnv("DB_HOST")
