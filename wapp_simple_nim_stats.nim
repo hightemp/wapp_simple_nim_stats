@@ -44,6 +44,7 @@ proc getCounter(req: Request) {.async.}  =
         req.response.statusCode = Http200
 
         var sJson = $(req.headers.toJson)
+        echo sJson
         # var aEnv = fnGetEnv()
         # var sEnv = $(aEnv.toJson)
         # echo "ENV: ", sEnv
