@@ -45,7 +45,7 @@ proc getCounter(req: Request) {.async.}  =
 
         var aEnv = fnGetEnv()
         var sEnv = $(aEnv.toJson)
-        # echo "ENV: ", sEnv
+        echo "ENV: ", sEnv
 
         var iC: int64 = 0
 
@@ -103,16 +103,13 @@ proc getCounter(req: Request) {.async.}  =
         var sC = $iC
         var sFormat = "000000"
         var sNumber = sFormat[0..(sFormat.len - sC.len - 1)] & sC
-        
+
         sSVG = sSVG.replace("{NUMBER}", sNumber)
         # return req.resp(sSVG)
         sSVG.resp
     except:
         echo "ERROR"
         "ERROR".resp
-
-proc fnShowTestingPage(req: Request) {.async.} =
-    "<h1>TESTING</h1>".resp
 
 proc main() =
     let app = newApp()
@@ -125,8 +122,6 @@ proc main() =
         echo "App shutdown completed! Bye-Bye Kisses :)"
         quit(QuitSuccess)
     )
-
-    app.get("/testing", fnShowTestingPage)
 
     app.get("/", getCounter)
 
