@@ -39,7 +39,7 @@ proc getCounter(req: Request) {.async.}  =
                         json VARCHAR(4000) NOT NULL
                     )""")
 
-        db.exec(sql"INSERT INTO visitors (timestamp, ip, env_json) VALUES (?, ?, ?)", 
+        db.exec(sql"INSERT INTO visitors (timestamp, ip, json) VALUES (?, ?, ?)", 
             $iDateTime, sRemoteAddr, sJson)
         
         iC = db.getValue(sql"SELECT COUNT(*) AS cnt FROM visitors").parseInt()
