@@ -74,8 +74,8 @@ proc getCounter(req: Request) {.async.}  =
 
         sSVG = sSVG.replace("{NUMBER}", sNumber)
         sSVG.resp
-    except Exception:
-        echo "ERROR: " & $(Exception)
+    except CatchableError as e:
+        echo "ERROR: " & e.msg
         "ERROR".resp
 
 proc main() =
