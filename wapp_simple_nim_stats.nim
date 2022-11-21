@@ -12,7 +12,7 @@ import std/[db_sqlite, math]
 
 putEnv("PORT", getEnv("PORT", "9000"))
 putEnv("DB_HOST", getEnv("DB_HOST", "./db.sqlite.db"))
-putEnv("REMOTE_ADDR", getEnv("REMOTE_ADDR", "0.0.0.0"))
+# putEnv("REMOTE_ADDR", getEnv("REMOTE_ADDR", "0.0.0.0"))
 
 # type
 #     HTTPRequest* = ref object of Model
@@ -25,13 +25,13 @@ putEnv("REMOTE_ADDR", getEnv("REMOTE_ADDR", "0.0.0.0"))
 
 var iPort = getEnv("PORT").parseInt()
 
-proc fnGetEnv(): Table[string, string] {.inline.} =
-    var aEnv = initTable[string, string]()
+# proc fnGetEnv(): Table[string, string] {.inline.} =
+#     var aEnv = initTable[string, string]()
 
-    for sK,sV in envPairs():
-        aEnv[sK] = sV
+#     for sK,sV in envPairs():
+#         aEnv[sK] = sV
 
-    return aEnv
+#     return aEnv
 
 # discard await 
 
@@ -43,14 +43,16 @@ proc getCounter(req: Request) {.async.}  =
         req.response.headers["cache-control"] = "max-age=0, no-cache, no-store, must-revalidate"
         req.response.statusCode = Http200
 
-        var aEnv = fnGetEnv()
-        var sEnv = $(aEnv.toJson)
-        echo "ENV: ", sEnv
+        var sJson = $(req.headers.toJson)
+        # var aEnv = fnGetEnv()
+        # var sEnv = $(aEnv.toJson)
+        # echo "ENV: ", sEnv
 
         var iC: int64 = 0
 
         var iDateTime = getTime().toUnix
-        var sRemoteAddr = aEnv["REMOTE_ADDR"]
+        # var sRemoteAddr = aEnv["REMOTE_ADDR"]
+        var sRemoteAddr = req.headers["X-Real-IP"]
 
         echo "[", getTime().utc, "][", sRemoteAddr , "] ", req.reqMethod
 
@@ -63,11 +65,11 @@ proc getCounter(req: Request) {.async.}  =
                         id    INTEGER PRIMARY KEY AUTOINCREMENT,
                         timestamp INTEGER NOT NULL,
                         ip VARCHAR(50) NOT NULL,
-                        env_json VARCHAR(4000) NOT NULL
+                        json VARCHAR(4000) NOT NULL
                     )""")
 
         db.exec(sql"INSERT INTO visitors (timestamp, ip, env_json) VALUES (?, ?, ?)", 
-            $iDateTime, sRemoteAddr, sEnv)
+            $iDateTime, sRemoteAddr, sJson)
 
         # db.createTables(oHTTPRequest)
         # db.insert(oHTTPRequest)
