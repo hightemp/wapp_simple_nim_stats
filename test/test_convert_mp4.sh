@@ -1,0 +1,1 @@
+ffmpeg -i badge.svg badge.mp4

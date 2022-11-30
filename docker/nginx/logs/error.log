@@ -1,0 +1,350 @@
+2022/11/30 11:55:56 [emerg] 8#8: no "ssl_certificate" is defined for the "listen ... ssl" directive in /etc/nginx/conf.d/default.conf:2
+2022/11/30 11:57:20 [notice] 8#8: using the "epoll" event method
+2022/11/30 11:57:20 [notice] 8#8: nginx/1.23.2
+2022/11/30 11:57:20 [notice] 8#8: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 11:57:20 [notice] 8#8: OS: Linux 5.15.0-53-generic
+2022/11/30 11:57:20 [notice] 8#8: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 11:57:20 [notice] 8#8: start worker processes
+2022/11/30 11:57:20 [notice] 8#8: start worker process 9
+2022/11/30 11:57:20 [notice] 8#8: start worker process 10
+2022/11/30 11:57:20 [notice] 8#8: start worker process 11
+2022/11/30 11:57:20 [notice] 8#8: start worker process 12
+2022/11/30 11:57:20 [notice] 8#8: start worker process 13
+2022/11/30 11:57:20 [notice] 8#8: start worker process 14
+2022/11/30 11:57:20 [notice] 8#8: start worker process 15
+2022/11/30 11:57:20 [notice] 8#8: start worker process 16
+2022/11/30 11:57:20 [notice] 8#8: start worker process 17
+2022/11/30 11:57:20 [notice] 8#8: start worker process 18
+2022/11/30 11:57:20 [notice] 8#8: start worker process 19
+2022/11/30 11:57:20 [notice] 8#8: start worker process 20
+2022/11/30 11:57:20 [notice] 8#8: start worker process 21
+2022/11/30 11:57:20 [notice] 8#8: start worker process 22
+2022/11/30 11:57:20 [notice] 8#8: start worker process 23
+2022/11/30 11:57:20 [notice] 8#8: start worker process 24
+2022/11/30 11:57:20 [notice] 8#8: start worker process 25
+2022/11/30 11:57:20 [notice] 8#8: start worker process 26
+2022/11/30 11:57:20 [notice] 8#8: start worker process 27
+2022/11/30 11:57:20 [notice] 8#8: start worker process 28
+2022/11/30 11:58:23 [notice] 8#8: using the "epoll" event method
+2022/11/30 11:58:23 [notice] 8#8: nginx/1.23.2
+2022/11/30 11:58:23 [notice] 8#8: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 11:58:23 [notice] 8#8: OS: Linux 5.15.0-53-generic
+2022/11/30 11:58:23 [notice] 8#8: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 11:58:23 [notice] 8#8: start worker processes
+2022/11/30 11:58:23 [notice] 8#8: start worker process 9
+2022/11/30 11:58:23 [notice] 8#8: start worker process 10
+2022/11/30 11:58:23 [notice] 8#8: start worker process 11
+2022/11/30 11:58:23 [notice] 8#8: start worker process 12
+2022/11/30 11:58:23 [notice] 8#8: start worker process 13
+2022/11/30 11:58:23 [notice] 8#8: start worker process 14
+2022/11/30 11:58:23 [notice] 8#8: start worker process 15
+2022/11/30 11:58:23 [notice] 8#8: start worker process 16
+2022/11/30 11:58:23 [notice] 8#8: start worker process 17
+2022/11/30 11:58:23 [notice] 8#8: start worker process 18
+2022/11/30 11:58:23 [notice] 8#8: start worker process 19
+2022/11/30 11:58:23 [notice] 8#8: start worker process 20
+2022/11/30 11:58:23 [notice] 8#8: start worker process 21
+2022/11/30 11:58:23 [notice] 8#8: start worker process 22
+2022/11/30 11:58:23 [notice] 8#8: start worker process 23
+2022/11/30 11:58:23 [notice] 8#8: start worker process 24
+2022/11/30 11:58:23 [notice] 8#8: start worker process 25
+2022/11/30 11:58:23 [notice] 8#8: start worker process 26
+2022/11/30 11:58:23 [notice] 8#8: start worker process 27
+2022/11/30 11:58:23 [notice] 8#8: start worker process 28
+2022/11/30 11:58:47 [error] 9#9: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090"
+2022/11/30 11:58:48 [error] 9#9: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 11:58:49 [error] 9#9: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 11:58:50 [error] 9#9: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:02:39 [notice] 8#8: using the "epoll" event method
+2022/11/30 12:02:39 [notice] 8#8: nginx/1.23.2
+2022/11/30 12:02:39 [notice] 8#8: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:02:39 [notice] 8#8: OS: Linux 5.15.0-53-generic
+2022/11/30 12:02:39 [notice] 8#8: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:02:39 [notice] 8#8: start worker processes
+2022/11/30 12:02:39 [notice] 8#8: start worker process 9
+2022/11/30 12:02:39 [notice] 8#8: start worker process 10
+2022/11/30 12:02:39 [notice] 8#8: start worker process 11
+2022/11/30 12:02:39 [notice] 8#8: start worker process 12
+2022/11/30 12:02:39 [notice] 8#8: start worker process 13
+2022/11/30 12:02:39 [notice] 8#8: start worker process 14
+2022/11/30 12:02:39 [notice] 8#8: start worker process 15
+2022/11/30 12:02:39 [notice] 8#8: start worker process 16
+2022/11/30 12:02:39 [notice] 8#8: start worker process 17
+2022/11/30 12:02:39 [notice] 8#8: start worker process 18
+2022/11/30 12:02:39 [notice] 8#8: start worker process 19
+2022/11/30 12:02:39 [notice] 8#8: start worker process 20
+2022/11/30 12:02:39 [notice] 8#8: start worker process 21
+2022/11/30 12:02:39 [notice] 8#8: start worker process 22
+2022/11/30 12:02:39 [notice] 8#8: start worker process 23
+2022/11/30 12:02:39 [notice] 8#8: start worker process 24
+2022/11/30 12:02:39 [notice] 8#8: start worker process 25
+2022/11/30 12:02:39 [notice] 8#8: start worker process 26
+2022/11/30 12:02:39 [notice] 8#8: start worker process 27
+2022/11/30 12:02:39 [notice] 8#8: start worker process 28
+2022/11/30 12:02:58 [error] 9#9: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090"
+2022/11/30 12:02:59 [error] 9#9: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:02:59 [error] 9#9: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:03:00 [error] 9#9: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:06:23 [notice] 8#8: using the "epoll" event method
+2022/11/30 12:06:23 [notice] 8#8: nginx/1.23.2
+2022/11/30 12:06:23 [notice] 8#8: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:06:23 [notice] 8#8: OS: Linux 5.15.0-53-generic
+2022/11/30 12:06:23 [notice] 8#8: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:06:23 [notice] 8#8: start worker processes
+2022/11/30 12:06:23 [notice] 8#8: start worker process 9
+2022/11/30 12:06:23 [notice] 8#8: start worker process 10
+2022/11/30 12:06:23 [notice] 8#8: start worker process 11
+2022/11/30 12:06:23 [notice] 8#8: start worker process 12
+2022/11/30 12:06:23 [notice] 8#8: start worker process 13
+2022/11/30 12:06:23 [notice] 8#8: start worker process 14
+2022/11/30 12:06:23 [notice] 8#8: start worker process 15
+2022/11/30 12:06:23 [notice] 8#8: start worker process 16
+2022/11/30 12:06:23 [notice] 8#8: start worker process 17
+2022/11/30 12:06:23 [notice] 8#8: start worker process 18
+2022/11/30 12:06:23 [notice] 8#8: start worker process 19
+2022/11/30 12:06:23 [notice] 8#8: start worker process 20
+2022/11/30 12:06:23 [notice] 8#8: start worker process 21
+2022/11/30 12:06:23 [notice] 8#8: start worker process 22
+2022/11/30 12:06:23 [notice] 8#8: start worker process 23
+2022/11/30 12:06:23 [notice] 8#8: start worker process 24
+2022/11/30 12:06:23 [notice] 8#8: start worker process 25
+2022/11/30 12:06:23 [notice] 8#8: start worker process 26
+2022/11/30 12:06:23 [notice] 8#8: start worker process 27
+2022/11/30 12:06:23 [notice] 8#8: start worker process 28
+2022/11/30 12:21:49 [warn] 8#8: the "user" directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
+2022/11/30 12:21:49 [notice] 8#8: using the "epoll" event method
+2022/11/30 12:21:49 [notice] 8#8: nginx/1.23.2
+2022/11/30 12:21:49 [notice] 8#8: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:21:49 [notice] 8#8: OS: Linux 5.15.0-53-generic
+2022/11/30 12:21:49 [notice] 8#8: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:21:49 [emerg] 8#8: open() "/var/run/nginx.pid" failed (13: Permission denied)
+2022/11/30 12:24:17 [notice] 8#8: using the "epoll" event method
+2022/11/30 12:24:17 [notice] 8#8: nginx/1.23.2
+2022/11/30 12:24:17 [notice] 8#8: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:24:17 [notice] 8#8: OS: Linux 5.15.0-53-generic
+2022/11/30 12:24:17 [notice] 8#8: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:24:17 [notice] 8#8: start worker processes
+2022/11/30 12:24:17 [notice] 8#8: start worker process 9
+2022/11/30 12:24:17 [notice] 8#8: start worker process 10
+2022/11/30 12:24:17 [notice] 8#8: start worker process 11
+2022/11/30 12:24:17 [notice] 8#8: start worker process 12
+2022/11/30 12:24:17 [notice] 8#8: start worker process 13
+2022/11/30 12:24:17 [notice] 8#8: start worker process 14
+2022/11/30 12:24:17 [notice] 8#8: start worker process 15
+2022/11/30 12:24:17 [notice] 8#8: start worker process 16
+2022/11/30 12:24:17 [notice] 8#8: start worker process 17
+2022/11/30 12:24:17 [notice] 8#8: start worker process 18
+2022/11/30 12:24:17 [notice] 8#8: start worker process 19
+2022/11/30 12:24:17 [notice] 8#8: start worker process 20
+2022/11/30 12:24:17 [notice] 8#8: start worker process 21
+2022/11/30 12:24:17 [notice] 8#8: start worker process 22
+2022/11/30 12:24:17 [notice] 8#8: start worker process 23
+2022/11/30 12:24:17 [notice] 8#8: start worker process 24
+2022/11/30 12:24:17 [notice] 8#8: start worker process 25
+2022/11/30 12:24:17 [notice] 8#8: start worker process 26
+2022/11/30 12:24:17 [notice] 8#8: start worker process 27
+2022/11/30 12:24:17 [notice] 8#8: start worker process 28
+2022/11/30 12:24:48 [notice] 8#8: using the "epoll" event method
+2022/11/30 12:24:48 [notice] 8#8: nginx/1.23.2
+2022/11/30 12:24:48 [notice] 8#8: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:24:48 [notice] 8#8: OS: Linux 5.15.0-53-generic
+2022/11/30 12:24:48 [notice] 8#8: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:24:48 [notice] 8#8: start worker processes
+2022/11/30 12:24:48 [notice] 8#8: start worker process 9
+2022/11/30 12:24:48 [notice] 8#8: start worker process 10
+2022/11/30 12:24:48 [notice] 8#8: start worker process 11
+2022/11/30 12:24:48 [notice] 8#8: start worker process 12
+2022/11/30 12:24:48 [notice] 8#8: start worker process 13
+2022/11/30 12:24:48 [notice] 8#8: start worker process 14
+2022/11/30 12:24:48 [notice] 8#8: start worker process 15
+2022/11/30 12:24:48 [notice] 8#8: start worker process 16
+2022/11/30 12:24:48 [notice] 8#8: start worker process 17
+2022/11/30 12:24:48 [notice] 8#8: start worker process 18
+2022/11/30 12:24:48 [notice] 8#8: start worker process 19
+2022/11/30 12:24:48 [notice] 8#8: start worker process 20
+2022/11/30 12:24:48 [notice] 8#8: start worker process 21
+2022/11/30 12:24:48 [notice] 8#8: start worker process 22
+2022/11/30 12:24:48 [notice] 8#8: start worker process 23
+2022/11/30 12:24:48 [notice] 8#8: start worker process 24
+2022/11/30 12:24:48 [notice] 8#8: start worker process 25
+2022/11/30 12:24:48 [notice] 8#8: start worker process 26
+2022/11/30 12:24:48 [notice] 8#8: start worker process 27
+2022/11/30 12:24:48 [notice] 8#8: start worker process 28
+2022/11/30 12:25:32 [notice] 9#9: using the "epoll" event method
+2022/11/30 12:25:32 [notice] 9#9: nginx/1.23.2
+2022/11/30 12:25:32 [notice] 9#9: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:25:32 [notice] 9#9: OS: Linux 5.15.0-53-generic
+2022/11/30 12:25:32 [notice] 9#9: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:25:32 [notice] 9#9: start worker processes
+2022/11/30 12:25:32 [notice] 9#9: start worker process 10
+2022/11/30 12:25:32 [notice] 9#9: start worker process 11
+2022/11/30 12:25:32 [notice] 9#9: start worker process 12
+2022/11/30 12:25:32 [notice] 9#9: start worker process 13
+2022/11/30 12:25:32 [notice] 9#9: start worker process 14
+2022/11/30 12:25:32 [notice] 9#9: start worker process 15
+2022/11/30 12:25:32 [notice] 9#9: start worker process 16
+2022/11/30 12:25:32 [notice] 9#9: start worker process 17
+2022/11/30 12:25:32 [notice] 9#9: start worker process 18
+2022/11/30 12:25:32 [notice] 9#9: start worker process 19
+2022/11/30 12:25:32 [notice] 9#9: start worker process 20
+2022/11/30 12:25:32 [notice] 9#9: start worker process 21
+2022/11/30 12:25:32 [notice] 9#9: start worker process 22
+2022/11/30 12:25:32 [notice] 9#9: start worker process 23
+2022/11/30 12:25:32 [notice] 9#9: start worker process 24
+2022/11/30 12:25:32 [notice] 9#9: start worker process 25
+2022/11/30 12:25:32 [notice] 9#9: start worker process 26
+2022/11/30 12:25:32 [notice] 9#9: start worker process 27
+2022/11/30 12:25:32 [notice] 9#9: start worker process 28
+2022/11/30 12:25:32 [notice] 9#9: start worker process 29
+2022/11/30 12:28:00 [notice] 10#10: using the "epoll" event method
+2022/11/30 12:28:00 [notice] 10#10: nginx/1.23.2
+2022/11/30 12:28:00 [notice] 10#10: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:28:00 [notice] 10#10: OS: Linux 5.15.0-53-generic
+2022/11/30 12:28:00 [notice] 10#10: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:28:00 [notice] 10#10: start worker processes
+2022/11/30 12:28:00 [notice] 10#10: start worker process 11
+2022/11/30 12:28:00 [notice] 10#10: start worker process 12
+2022/11/30 12:28:00 [notice] 10#10: start worker process 13
+2022/11/30 12:28:00 [notice] 10#10: start worker process 14
+2022/11/30 12:28:00 [notice] 10#10: start worker process 15
+2022/11/30 12:28:00 [notice] 10#10: start worker process 16
+2022/11/30 12:28:00 [notice] 10#10: start worker process 17
+2022/11/30 12:28:00 [notice] 10#10: start worker process 18
+2022/11/30 12:28:00 [notice] 10#10: start worker process 19
+2022/11/30 12:28:00 [notice] 10#10: start worker process 20
+2022/11/30 12:28:00 [notice] 10#10: start worker process 21
+2022/11/30 12:28:00 [notice] 10#10: start worker process 22
+2022/11/30 12:28:00 [notice] 10#10: start worker process 23
+2022/11/30 12:28:00 [notice] 10#10: start worker process 24
+2022/11/30 12:28:00 [notice] 10#10: start worker process 25
+2022/11/30 12:28:00 [notice] 10#10: start worker process 26
+2022/11/30 12:28:00 [notice] 10#10: start worker process 27
+2022/11/30 12:28:00 [notice] 10#10: start worker process 28
+2022/11/30 12:28:00 [notice] 10#10: start worker process 29
+2022/11/30 12:28:00 [notice] 10#10: start worker process 30
+2022/11/30 12:33:42 [notice] 10#10: using the "epoll" event method
+2022/11/30 12:33:42 [notice] 10#10: nginx/1.23.2
+2022/11/30 12:33:42 [notice] 10#10: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:33:42 [notice] 10#10: OS: Linux 5.15.0-53-generic
+2022/11/30 12:33:42 [notice] 10#10: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:33:42 [notice] 10#10: start worker processes
+2022/11/30 12:33:42 [notice] 10#10: start worker process 11
+2022/11/30 12:33:42 [notice] 10#10: start worker process 12
+2022/11/30 12:33:42 [notice] 10#10: start worker process 13
+2022/11/30 12:33:42 [notice] 10#10: start worker process 14
+2022/11/30 12:33:42 [notice] 10#10: start worker process 15
+2022/11/30 12:33:42 [notice] 10#10: start worker process 16
+2022/11/30 12:33:42 [notice] 10#10: start worker process 17
+2022/11/30 12:33:42 [notice] 10#10: start worker process 18
+2022/11/30 12:33:42 [notice] 10#10: start worker process 19
+2022/11/30 12:33:42 [notice] 10#10: start worker process 20
+2022/11/30 12:33:42 [notice] 10#10: start worker process 21
+2022/11/30 12:33:42 [notice] 10#10: start worker process 22
+2022/11/30 12:33:42 [notice] 10#10: start worker process 23
+2022/11/30 12:33:42 [notice] 10#10: start worker process 24
+2022/11/30 12:33:42 [notice] 10#10: start worker process 25
+2022/11/30 12:33:42 [notice] 10#10: start worker process 26
+2022/11/30 12:33:42 [notice] 10#10: start worker process 27
+2022/11/30 12:33:42 [notice] 10#10: start worker process 28
+2022/11/30 12:33:42 [notice] 10#10: start worker process 29
+2022/11/30 12:33:42 [notice] 10#10: start worker process 30
+2022/11/30 12:34:03 [notice] 10#10: using the "epoll" event method
+2022/11/30 12:34:03 [notice] 10#10: nginx/1.23.2
+2022/11/30 12:34:03 [notice] 10#10: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:34:03 [notice] 10#10: OS: Linux 5.15.0-53-generic
+2022/11/30 12:34:03 [notice] 10#10: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:34:03 [notice] 10#10: start worker processes
+2022/11/30 12:34:03 [notice] 10#10: start worker process 11
+2022/11/30 12:34:03 [notice] 10#10: start worker process 12
+2022/11/30 12:34:03 [notice] 10#10: start worker process 13
+2022/11/30 12:34:03 [notice] 10#10: start worker process 14
+2022/11/30 12:34:03 [notice] 10#10: start worker process 15
+2022/11/30 12:34:03 [notice] 10#10: start worker process 16
+2022/11/30 12:34:03 [notice] 10#10: start worker process 17
+2022/11/30 12:34:03 [notice] 10#10: start worker process 18
+2022/11/30 12:34:03 [notice] 10#10: start worker process 19
+2022/11/30 12:34:03 [notice] 10#10: start worker process 20
+2022/11/30 12:34:03 [notice] 10#10: start worker process 21
+2022/11/30 12:34:03 [notice] 10#10: start worker process 22
+2022/11/30 12:34:03 [notice] 10#10: start worker process 23
+2022/11/30 12:34:03 [notice] 10#10: start worker process 24
+2022/11/30 12:34:03 [notice] 10#10: start worker process 25
+2022/11/30 12:34:03 [notice] 10#10: start worker process 26
+2022/11/30 12:34:03 [notice] 10#10: start worker process 27
+2022/11/30 12:34:03 [notice] 10#10: start worker process 28
+2022/11/30 12:34:03 [notice] 10#10: start worker process 29
+2022/11/30 12:34:03 [notice] 10#10: start worker process 30
+2022/11/30 12:34:45 [notice] 10#10: using the "epoll" event method
+2022/11/30 12:34:45 [notice] 10#10: nginx/1.23.2
+2022/11/30 12:34:45 [notice] 10#10: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:34:45 [notice] 10#10: OS: Linux 5.15.0-53-generic
+2022/11/30 12:34:45 [notice] 10#10: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:34:45 [notice] 10#10: start worker processes
+2022/11/30 12:34:45 [notice] 10#10: start worker process 11
+2022/11/30 12:34:45 [notice] 10#10: start worker process 12
+2022/11/30 12:34:45 [notice] 10#10: start worker process 13
+2022/11/30 12:34:45 [notice] 10#10: start worker process 14
+2022/11/30 12:34:45 [notice] 10#10: start worker process 15
+2022/11/30 12:34:45 [notice] 10#10: start worker process 16
+2022/11/30 12:34:45 [notice] 10#10: start worker process 17
+2022/11/30 12:34:45 [notice] 10#10: start worker process 18
+2022/11/30 12:34:45 [notice] 10#10: start worker process 19
+2022/11/30 12:34:45 [notice] 10#10: start worker process 20
+2022/11/30 12:34:45 [notice] 10#10: start worker process 21
+2022/11/30 12:34:45 [notice] 10#10: start worker process 22
+2022/11/30 12:34:45 [notice] 10#10: start worker process 23
+2022/11/30 12:34:45 [notice] 10#10: start worker process 24
+2022/11/30 12:34:45 [notice] 10#10: start worker process 25
+2022/11/30 12:34:45 [notice] 10#10: start worker process 26
+2022/11/30 12:34:45 [notice] 10#10: start worker process 27
+2022/11/30 12:34:45 [notice] 10#10: start worker process 28
+2022/11/30 12:34:45 [notice] 10#10: start worker process 29
+2022/11/30 12:34:45 [notice] 10#10: start worker process 30
+2022/11/30 12:34:52 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090"
+2022/11/30 12:34:53 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:34:53 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:34:54 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:08 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090"
+2022/11/30 12:35:08 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:08 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:09 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090"
+2022/11/30 12:35:09 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:09 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:10 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090"
+2022/11/30 12:35:10 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:10 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:11 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:18 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090"
+2022/11/30 12:35:18 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:19 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:20 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/"
+2022/11/30 12:35:22 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /mp4 HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090"
+2022/11/30 12:35:22 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/mp4"
+2022/11/30 12:35:22 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/mp4"
+2022/11/30 12:35:23 [error] 11#11: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.201.0.1, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8090", referrer: "http://127.0.0.1:8090/mp4"
+2022/11/30 12:41:47 [notice] 10#10: using the "epoll" event method
+2022/11/30 12:41:47 [notice] 10#10: nginx/1.23.2
+2022/11/30 12:41:47 [notice] 10#10: built by gcc 11.2.1 20220219 (Alpine 11.2.1_git20220219) 
+2022/11/30 12:41:47 [notice] 10#10: OS: Linux 5.15.0-53-generic
+2022/11/30 12:41:47 [notice] 10#10: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2022/11/30 12:41:47 [notice] 10#10: start worker processes
+2022/11/30 12:41:47 [notice] 10#10: start worker process 11
+2022/11/30 12:41:47 [notice] 10#10: start worker process 12
+2022/11/30 12:41:47 [notice] 10#10: start worker process 13
+2022/11/30 12:41:47 [notice] 10#10: start worker process 14
+2022/11/30 12:41:47 [notice] 10#10: start worker process 15
+2022/11/30 12:41:47 [notice] 10#10: start worker process 16
+2022/11/30 12:41:47 [notice] 10#10: start worker process 17
+2022/11/30 12:41:47 [notice] 10#10: start worker process 18
+2022/11/30 12:41:47 [notice] 10#10: start worker process 19
+2022/11/30 12:41:47 [notice] 10#10: start worker process 20
+2022/11/30 12:41:47 [notice] 10#10: start worker process 21
+2022/11/30 12:41:47 [notice] 10#10: start worker process 22
+2022/11/30 12:41:47 [notice] 10#10: start worker process 23
+2022/11/30 12:41:47 [notice] 10#10: start worker process 24
+2022/11/30 12:41:47 [notice] 10#10: start worker process 25
+2022/11/30 12:41:47 [notice] 10#10: start worker process 26
+2022/11/30 12:41:47 [notice] 10#10: start worker process 27
+2022/11/30 12:41:47 [notice] 10#10: start worker process 28
+2022/11/30 12:41:47 [notice] 10#10: start worker process 29
+2022/11/30 12:41:47 [notice] 10#10: start worker process 30

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+id
+groups
+
+supervisord -n -c /etc/supervisord.conf &
+nginx -g 'daemon off;' &
+
+wait

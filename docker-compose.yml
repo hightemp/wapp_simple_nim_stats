@@ -1,0 +1,18 @@
+# Для ТЕСТИРОВАНИЯ
+
+# Версия docker-compose
+version: '3'
+# Список наших сервисов (контейнеров)
+services:
+    nginx:
+        build: .
+        # маршрутизируем порты
+        ports:
+            - $HTTP_PORT_NGINX:80
+            - $HTTPS_PORT_NGINX:443
+            - 9000:9000
+        # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
+        volumes:
+            # - ./docker/nginx/hosts:/etc/nginx/conf.d
+            - ./wapp_simple_nim_stats:/var/www/app/app.fcgi
+            - ./docker/nginx/logs:/var/log/nginx
