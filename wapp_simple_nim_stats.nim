@@ -119,8 +119,8 @@ proc getCounterMP4(req: Request) {.async.}  =
         oFile.write(sCounterSVG)
         oFile.close()
         
-        var sSVGFilePath = getTempDir() & "/" & sFileName
-        var sMP4FilePath = getTempDir() & "/" & sFileName.replace(".svg", ".mp4")
+        var sSVGFilePath = sFileName
+        var sMP4FilePath = sFileName.replace(".svg", ".mp4")
 
         var iECode = execShellCmd(&"ffmpeg -i {sSVGFilePath} {sMP4FilePath}")
 
