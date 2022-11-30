@@ -16,7 +16,12 @@ CGI счетчик посетителей на nim в базу sqlite3.
     <span class="dropdown-caret"></span>
   </summary>
 
-  <video src="https://asdertasd.site/mp4" data-canonical-src="https://asdertasd.site/mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px;">
+  <video src="https://asdertasd.site/mp4?file.mp4" data-canonical-src="https://asdertasd.site/mp4?file.mp4" controls="controls" muted="muted">
   </video>
+
+  <video autoplay loop style="width:100%; height: auto; position:absolute; z-index: -1;">
+    <source src="https://asdertasd.site/mp4?file.mp4" type="video/mp4" />
+    <img src="https://asdertasd.site/">
+    </video>
 </details>
 
