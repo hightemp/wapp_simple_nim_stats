@@ -3,6 +3,8 @@
 CGI счетчик посетителей на nim в базу sqlite3. 
 Выводит сохраненную плашку с ![](https://img.shields.io/badge/statistics-0-yellowgreen)
 
+---
+
 ![](https://asdertasd.site/)
 
 <video autoplay loop style="width:100%; height: auto; position:absolute; z-index: -1;">
