@@ -1,3 +1,10 @@
 #!/bin/bash
 
-nim c -d:ssl -r wapp_simple_nim_stats.nim
+nim c \
+    --dynlibOverride:sqlite3 \
+    --passL:"sqlite3.o -lm -pthread" \
+    --passL:-static \
+    --spellSuggest \
+    -d:release \
+    --opt:size \
+    wapp_simple_nim_stats.nim

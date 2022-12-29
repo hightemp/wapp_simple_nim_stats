@@ -6,7 +6,7 @@ import times
 import fastkiss
 import system/ansi_c
 import std/db_sqlite
-import std/tempfiles
+# import std/tempfiles
 
 putEnv("PORT", getEnv("PORT", "9000"))
 putEnv("DB_HOST", getEnv("DB_HOST", "./wapp_simple_nim_stats.db"))
@@ -164,6 +164,18 @@ proc getCounter(req: Request) {.async.}  =
         echo "ERROR: " & e.msg
         "ERROR".resp
 
+proc getStatisticsFullJSON(req: Request) {.async.} =
+    var sResp = "{status:\"ERROR\"}"
+    try:
+        var sDBFile = getEnv("DB_HOST")
+        var db = open(sDBFile, "", "", "")
+
+        var aRows = db.getAllRows(sql"SELECT timestamp, datetime( timestamp ) as d, ip, json FROM visitors ORDER BY timestamp DESC")
+        sResp = ($(%*(aRows)))
+    except CatchableError as e:
+        echo "ERROR: " & e.msg
+    sResp.resp
+
 proc getStatisticsFullSelf(req: Request) {.async.}  =
     var sHTML = "ERROR"
     try:
@@ -171,7 +183,7 @@ proc getStatisticsFullSelf(req: Request) {.async.}  =
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
-        for aRow in db.fastRows(sql"SELECT strftime('%Y-%m-%d',timestamp) as d, ip, json FROM visitors ORDER BY timestamp DESC"):
+        for aRow in db.fastRows(sql"SELECT datetime( timestamp ) as d, ip, json FROM visitors ORDER BY timestamp DESC"):
             sHTML = sHTML & fmt"""
                 <div class="raw">
                     <div class="cell">{aRow[0]}</div>
@@ -277,6 +289,8 @@ proc main() =
     # app.get("/mp4", getCounterMP4)
     app.get("/statstics_self", getStatisticsSelf)
     app.get("/statstics_self_full", getStatisticsFullSelf)
+    app.get("/statstics_self_full_json", getStatisticsFullJSON)
+    
 
     app.run()
 

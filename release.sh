@@ -1,10 +1,10 @@
-nim c \
-    --dynlibOverride:sqlite3 \
-    --passL:"sqlite3.o -lm -pthread" \
+nim \
+    --gcc.exe:musl-gcc \
+    --gcc.linkerexe:musl-gcc \
     --passL:-static \
-    --spellSuggest \
-    -d:release --opt:size \
-    wapp_simple_nim_stats.nim
+    -d:release \
+    --opt:size \
+    c wapp_simple_nim_stats.nim
 
 if [ "$?" != "0" ]; then
     echo "====================================================="
