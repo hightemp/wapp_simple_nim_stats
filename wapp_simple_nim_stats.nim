@@ -170,7 +170,7 @@ proc getStatisticsFullJSON(req: Request) {.async.} =
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
-        var aRows = db.getAllRows(sql"SELECT timestamp, datetime( timestamp/1000 ) as d, ip, json FROM visitors ORDER BY timestamp DESC")
+        var aRows = db.getAllRows(sql"SELECT timestamp, datetime(timestamp, 'unixepoch') as d, ip, json FROM visitors ORDER BY timestamp DESC")
         sResp = ($(%*(aRows)))
     except CatchableError as e:
         echo "ERROR: " & e.msg
@@ -183,7 +183,7 @@ proc getStatisticsFullSelf(req: Request) {.async.}  =
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
-        for aRow in db.fastRows(sql"SELECT datetime( timestamp/1000 ) as d, ip, json FROM visitors ORDER BY timestamp DESC"):
+        for aRow in db.fastRows(sql"SELECT datetime(timestamp, 'unixepoch') as d, ip, json FROM visitors ORDER BY timestamp DESC"):
             sHTML = sHTML & fmt"""
                 <div class="raw">
                     <div class="cell">{aRow[0]}</div>
@@ -204,7 +204,7 @@ proc getStatisticsSelf(req: Request) {.async.}  =
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
-        for aRow in db.fastRows(sql"SELECT COUNT(id) AS c, strftime('%Y-%m-%d',timestamp/1000) AS dd, strftime('%d',timestamp/1000) AS d FROM visitors GROUP BY strftime('%d',timestamp/1000) ORDER BY timestamp DESC"):
+        for aRow in db.fastRows(sql"SELECT COUNT(id) AS c, datetime(timestamp, 'unixepoch') AS dd, strftime('%d',datetime(timestamp, 'unixepoch')) AS d FROM visitors GROUP BY strftime('%d',datetime(timestamp, 'unixepoch')) ORDER BY timestamp DESC"):
             var iP = int(parseInt(aRow[0])/1000)*100
             sHTML = sHTML & fmt"""
     <div class="raw">
