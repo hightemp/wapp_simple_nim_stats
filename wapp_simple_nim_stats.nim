@@ -165,8 +165,9 @@ proc getCounter(req: Request) {.async.}  =
         "ERROR".resp
 
 proc getStatisticsFullSelf(req: Request) {.async.}  =
+    var sHTML = "ERROR"
     try:
-        var sHTML = HTML_STAT_BEGIN2
+        sHTML = HTML_STAT_BEGIN2
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
@@ -180,14 +181,14 @@ proc getStatisticsFullSelf(req: Request) {.async.}  =
             """
 
         sHTML = sHTML & HTML_STAT_END2
-        echo sHTML
     except CatchableError as e:
         echo "ERROR: " & e.msg
-        "ERROR".resp
+    sHTML.resp
 
 proc getStatisticsSelf(req: Request) {.async.}  =
+    var sHTML = "ERROR"
     try:
-        var sHTML = HTML_STAT_BEGIN
+        sHTML = HTML_STAT_BEGIN
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
@@ -204,10 +205,9 @@ proc getStatisticsSelf(req: Request) {.async.}  =
 """
 
         sHTML = sHTML & HTML_STAT_END
-        echo sHTML
     except CatchableError as e:
         echo "ERROR: " & e.msg
-        "ERROR".resp
+    sHTML.resp
 
 proc getCounterMP4(req: Request) {.async.}  =
     try:
