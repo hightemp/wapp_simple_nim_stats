@@ -128,7 +128,7 @@ proc getStatisticsSelf(req: Request) {.async.}  =
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
-        for aRow in db.fastRows(sql"SELECT COUNT(id) AS c, strftime ('%Y-%m-%d',timestamp) AS dd, strftime ('%d',timestamp) AS d FROM visitors ORDER timestamp DESC GROUP BY strftime ('%d',timestamp)"):
+        for aRow in db.fastRows(sql"SELECT COUNT(id) AS c, strftime('%Y-%m-%d',timestamp) AS dd, strftime('%d',timestamp) AS d FROM visitors ORDER BY timestamp DESC GROUP BY strftime('%d',timestamp)"):
             var iP = int(parseInt(aRow[0])/1000)*100
             sHTML = sHTML & fmt"""
     <div class="raw">
