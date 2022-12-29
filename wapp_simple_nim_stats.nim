@@ -205,7 +205,7 @@ proc getStatisticsSelf(req: Request) {.async.}  =
         var db = open(sDBFile, "", "", "")
 
         for aRow in db.fastRows(sql"SELECT COUNT(id) AS c, datetime(timestamp, 'unixepoch') AS dd, strftime('%d',datetime(timestamp, 'unixepoch')) AS d FROM visitors GROUP BY strftime('%d',datetime(timestamp, 'unixepoch')) ORDER BY timestamp DESC"):
-            var iP = int(parseInt(aRow[0])/1000)*100
+            var iP = int(parseInt(aRow[0])/1000*100)
             sHTML = sHTML & fmt"""
     <div class="raw">
         <div class="cell">{aRow[2]}</div>
