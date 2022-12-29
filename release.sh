@@ -6,13 +6,6 @@ nim \
     --opt:size \
     c wapp_simple_nim_stats.nim
 
-if [ "$?" != "0" ]; then
-    echo "====================================================="
-    echo "ERROR"
-    echo
-    exit 1
-fi
-
 # nim c \
 #     --gcc.exe:musl-gcc \
 #     --gcc.linkerexe:musl-gcc \
@@ -20,6 +13,14 @@ fi
 #     --dynlibOverride:sqlite3 --passL:"sqlite3.o -lm -pthread" \
 #     -d:release --opt:size \
 #     wapp_simple_nim_stats.nim
+
+if [ "$?" != "0" ]; then
+    echo "====================================================="
+    echo "ERROR"
+    echo
+    exit 1
+fi
+
 strip -s ./wapp_simple_nim_stats
 
 if [ "$?" != "0" ]; then
