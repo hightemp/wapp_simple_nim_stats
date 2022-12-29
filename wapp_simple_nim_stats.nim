@@ -171,7 +171,7 @@ proc getStatisticsFullSelf(req: Request) {.async.}  =
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
-        for aRow in db.fastRows(sql"SELECT strftime('%Y-%m-%d',timestamp) as d, ip, json FROM visitors ORDER BY timestamp"):
+        for aRow in db.fastRows(sql"SELECT strftime('%Y-%m-%d',timestamp) as d, ip, json FROM visitors ORDER BY timestamp DESC"):
             sHTML = sHTML & fmt"""
                 <div class="raw">
                     <div class="cell">{aRow[0]}</div>
@@ -192,11 +192,11 @@ proc getStatisticsSelf(req: Request) {.async.}  =
         var sDBFile = getEnv("DB_HOST")
         var db = open(sDBFile, "", "", "")
 
-        for aRow in db.fastRows(sql"SELECT COUNT(id) AS c, strftime('%Y-%m-%d',timestamp) AS dd, strftime('%d',timestamp) AS d FROM visitors GROUP BY strftime('%d',timestamp) ORDER BY timestamp DESC LIMIT 10"):
+        for aRow in db.fastRows(sql"SELECT COUNT(id) AS c, strftime('%Y-%m-%d',timestamp) AS dd, strftime('%d',timestamp) AS d FROM visitors GROUP BY strftime('%d',timestamp) ORDER BY timestamp DESC"):
             var iP = int(parseInt(aRow[0])/1000)*100
             sHTML = sHTML & fmt"""
     <div class="raw">
-        <div class="cell">{aRow[1]}</div>
+        <div class="cell">{aRow[2]}</div>
         <div class="cell">{aRow[0]}</div>
         <div class="cell-bar">
             <div class="bar" style="width:{iP}%"></div>
@@ -209,59 +209,59 @@ proc getStatisticsSelf(req: Request) {.async.}  =
         echo "ERROR: " & e.msg
     sHTML.resp
 
-proc getCounterMP4(req: Request) {.async.}  =
-    try:
-        req.response.headers["content-type"] = "video/mp4; charset=utf-8"
-        req.response.headers["cache-control"] = "max-age=0, no-cache, no-store, must-revalidate"
-        req.response.statusCode = Http200
+# proc getCounterMP4(req: Request) {.async.}  =
+#     try:
+#         req.response.headers["content-type"] = "video/mp4; charset=utf-8"
+#         req.response.headers["cache-control"] = "max-age=0, no-cache, no-store, must-revalidate"
+#         req.response.statusCode = Http200
 
-        var sJson = $(req.headers.toJson)
+#         var sJson = $(req.headers.toJson)
                                 
-        var iC: int64 = 0
+#         var iC: int64 = 0
 
-        var iDateTime = getTime().toUnix
-        var sRemoteAddr = req.headers["remote_addr"]
+#         var iDateTime = getTime().toUnix
+#         var sRemoteAddr = req.headers["remote_addr"]
 
-        echo "[", getTime().utc, "][", sRemoteAddr , "] ", req.reqMethod
+#         echo "[", getTime().utc, "][", sRemoteAddr , "] ", req.reqMethod
         
-        var sDBFile = getEnv("DB_HOST")
-        var db = open(sDBFile, "", "", "")
+#         var sDBFile = getEnv("DB_HOST")
+#         var db = open(sDBFile, "", "", "")
 
-        db.exec(sql"""CREATE TABLE IF NOT EXISTS visitors (
-                        id    INTEGER PRIMARY KEY AUTOINCREMENT,
-                        timestamp INTEGER NOT NULL,
-                        ip VARCHAR(50) NOT NULL,
-                        json VARCHAR(4000) NOT NULL
-                    )""")
+#         db.exec(sql"""CREATE TABLE IF NOT EXISTS visitors (
+#                         id    INTEGER PRIMARY KEY AUTOINCREMENT,
+#                         timestamp INTEGER NOT NULL,
+#                         ip VARCHAR(50) NOT NULL,
+#                         json VARCHAR(4000) NOT NULL
+#                     )""")
 
-        db.exec(sql"INSERT INTO visitors (timestamp, ip, json) VALUES (?, ?, ?)", 
-            $iDateTime, sRemoteAddr, sJson)
+#         db.exec(sql"INSERT INTO visitors (timestamp, ip, json) VALUES (?, ?, ?)", 
+#             $iDateTime, sRemoteAddr, sJson)
         
-        iC = db.getValue(sql"SELECT COUNT(*) AS cnt FROM visitors").parseInt()
+#         iC = db.getValue(sql"SELECT COUNT(*) AS cnt FROM visitors").parseInt()
 
-        var sC = $iC
-        var sFormat = "000000"
-        var sNumber = sFormat[0..(sFormat.len - sC.len - 1)] & sC
+#         var sC = $iC
+#         var sFormat = "000000"
+#         var sNumber = sFormat[0..(sFormat.len - sC.len - 1)] & sC
 
-        var sCounterSVG = SVG_TEXT.replace("{NUMBER}", sNumber)
+#         var sCounterSVG = SVG_TEXT.replace("{NUMBER}", sNumber)
 
-        let (oFile, sFileName) = createTempFile("tmpprefix_", "_end.svg")
-        oFile.write(sCounterSVG)
-        oFile.close()
+#         let (oFile, sFileName) = createTempFile("tmpprefix_", "_end.svg")
+#         oFile.write(sCounterSVG)
+#         oFile.close()
         
-        var sSVGFilePath = sFileName
-        var sMP4FilePath = sFileName.replace(".svg", ".mp4")
+#         var sSVGFilePath = sFileName
+#         var sMP4FilePath = sFileName.replace(".svg", ".mp4")
 
-        var iECode = execShellCmd(&"ffmpeg -i {sSVGFilePath} {sMP4FilePath}")
+#         var iECode = execShellCmd(&"ffmpeg -i {sSVGFilePath} {sMP4FilePath}")
 
-        if iECode>0:
-            raise newException(ValueError, "It won't compile")
+#         if iECode>0:
+#             raise newException(ValueError, "It won't compile")
 
-        readFile(sMP4FilePath).resp
+#         readFile(sMP4FilePath).resp
         
-    except CatchableError as e:
-        echo "ERROR: " & e.msg
-        "ERROR".resp
+#     except CatchableError as e:
+#         echo "ERROR: " & e.msg
+#         "ERROR".resp
 
 proc main() =
     let app = newApp()
