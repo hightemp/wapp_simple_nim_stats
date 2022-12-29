@@ -1,18 +1,24 @@
-nim \
-    --gcc.exe:musl-gcc \
-    --gcc.linkerexe:musl-gcc \
-    --passL:-static \
-    -d:release \
-    --opt:size \
-    c wapp_simple_nim_stats.nim
+nim c -r wapp_simple_nim_stats.nim
+
+# nim \
+#     --gcc.exe:musl-gcc \
+#     --gcc.linkerexe:musl-gcc \
+#     --passL:-static \
+#     -d:release \
+#     --opt:size \
+#     c wapp_simple_nim_stats.nim
+
+rm -rf /home/hightemp/.cache/nim
 
 # nim c \
 #     --gcc.exe:musl-gcc \
 #     --gcc.linkerexe:musl-gcc \
 #     --passL:-static \
-#     --dynlibOverride:sqlite3 --passL:"sqlite3.o -lm -pthread" \
+#     -o:sqlite3.so \
 #     -d:release --opt:size \
 #     wapp_simple_nim_stats.nim
+
+#     --passL:"sqlite3.o -pthread" \
 
 if [ "$?" != "0" ]; then
     echo "====================================================="
