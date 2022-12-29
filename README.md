@@ -5,7 +5,7 @@ CGI счетчик посетителей на nim в базу sqlite3.
 
 ---
 
-![](https://asdertasd.site/)
+[![](https://asdertasd.site/)](http://canarytokens.com/terms/tags/2qs7xuyjlmoilq7bqivpp8ksd/submit.aspx)
 
 <details open="" class="details-reset border rounded-2">
   <summary class="px-3 py-2">
