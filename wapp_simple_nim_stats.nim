@@ -105,7 +105,7 @@ const HTML_STAT_END2 = """
 .stat-table { border-bottom: 1px solid rgba(0,0,0,0.1); border-right: 1px solid rgba(0,0,0,0.1); }
 .raw-header, .raw {
     display: grid;
-    grid-template-columns: 120px 60px 1fr;
+    grid-template-columns: 120px 150px 1fr;
 }
 .raw-header .cell {
     font-weight: bold;
