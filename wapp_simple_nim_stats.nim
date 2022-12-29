@@ -1,17 +1,15 @@
-import asyncnet, asyncdispatch, httpcore, strutils, strformat, os
+import asyncdispatch, httpcore, strutils, strformat, os
 import std/json
 import std/jsonutils
-import std/envvars
 import std/tables
 import times
 import fastkiss
-import sugar
 import system/ansi_c
-import std/[db_sqlite, math]
+import std/db_sqlite
 import std/tempfiles
 
 putEnv("PORT", getEnv("PORT", "9000"))
-putEnv("DB_HOST", getEnv("DB_HOST", "./db.sqlite.db"))
+putEnv("DB_HOST", getEnv("DB_HOST", "./wapp_simple_nim_stats.db"))
 
 var iPort = getEnv("PORT").parseInt()
 
@@ -37,7 +35,52 @@ const SVG_TEXT = """
         <text x="835" y="140" transform="scale(.1)" fill="#fff" textLength="410">{NUMBER}</text>
     </g>
 </svg>
-    """
+"""
+
+const HTML_STAT_BEGIN = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+</head>
+<body>
+    <div class="stat-table">
+"""
+
+const HTML_STAT_END = """
+    </div>
+<style>
+.stat-table { border-bottom: 1px solid rgba(0,0,0,0.1); border-right: 1px solid rgba(0,0,0,0.1); }
+.raw-header, .raw {
+    display: grid;
+    grid-template-columns: 120px 60px 1fr;
+}
+.raw-header .cell {
+    font-weight: bold;
+    background: #eee;
+}
+.cell-bar, .cell { border-top: 1px solid rgba(0,0,0,0.1); border-left: 1px solid rgba(0,0,0,0.1); }
+.cell-bar { display: flex; }
+.cell { padding: 5px; }
+.bar {
+    border: 1px solid rgba(0,0,0,0.1);
+    background: red;
+    height: 100%;
+    display: inline-block;
+}
+</style>
+</body>
+</html>
+"""
+
+iterator `...`*[T](a: T, b: T): T =
+    var res: T = a
+    while res <= b:
+        yield res
+        inc res
 
 proc getCounter(req: Request) {.async.}  =
     try:
@@ -46,7 +89,7 @@ proc getCounter(req: Request) {.async.}  =
         req.response.statusCode = Http200
 
         var sJson = $(req.headers.toJson)
-                                
+        
         var iC: int64 = 0
 
         var iDateTime = getTime().toUnix
@@ -75,6 +118,29 @@ proc getCounter(req: Request) {.async.}  =
 
         var sCounterSVG = SVG_TEXT.replace("{NUMBER}", sNumber)
         sCounterSVG.resp
+    except CatchableError as e:
+        echo "ERROR: " & e.msg
+        "ERROR".resp
+
+proc getStatisticsSelf(req: Request) {.async.}  =
+    try:
+        var sHTML = HTML_STAT_BEGIN
+        var sDBFile = getEnv("DB_HOST")
+        var db = open(sDBFile, "", "", "")
+
+        for aRow in db.fastRows(sql"SELECT COUNT(id) AS c, strftime ('%Y-%m-%d',timestamp) AS dd, strftime ('%d',timestamp) AS d FROM visitors ORDER timestamp DESC GROUP BY strftime ('%d',timestamp)"):
+            var iP = int(parseInt(aRow[0])/1000)*100
+            sHTML = sHTML & fmt"""
+    <div class="raw">
+        <div class="cell">{aRow[1]}</div>
+        <div class="cell">{aRow[0]}</div>
+        <div class="cell-bar">
+            <div class="bar" style="width:{iP}%"></div>
+        </div>
+    </div>
+"""
+
+        sHTML = sHTML & HTML_STAT_END
     except CatchableError as e:
         echo "ERROR: " & e.msg
         "ERROR".resp
@@ -144,7 +210,8 @@ proc main() =
     )
 
     app.get("/", getCounter)
-    app.get("/mp4", getCounterMP4)
+    # app.get("/mp4", getCounterMP4)
+    app.get("/statstics_self", getStatisticsSelf)
 
     app.run()
 

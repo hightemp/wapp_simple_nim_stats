@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+</head>
+<body>
+    <div class="stat-table">
+        <div class="raw-header">
+            <div class="cell">Дата</div>
+            <div class="cell">Виз.</div>
+            <div class="cell">График</div>
+        </div>
+        <div class="raw">
+            <div class="cell">1 января 2023</div>
+            <div class="cell">10000</div>
+            <div class="cell-bar">
+                <div class="bar" style="width:10%"></div>
+            </div>
+        </div>
+        <div class="raw">
+            <div class="cell">1 января 2023</div>
+            <div class="cell">10000</div>
+            <div class="cell-bar">
+                <div class="bar" style="width:40%"></div>
+            </div>
+        </div>
+        <div class="raw">
+            <div class="cell">1 января 2023</div>
+            <div class="cell">10000</div>
+            <div class="cell-bar">
+                <div class="bar" style="width:70%"></div>
+            </div>
+        </div>
+        <div class="raw">
+            <div class="cell">1 января 2023</div>
+            <div class="cell">10000</div>
+            <div class="cell-bar">
+                <div class="bar" style="width:1%"></div>
+            </div>
+        </div>
+    </div>
+<style>
+.stat-table { border-bottom: 1px solid rgba(0,0,0,0.1); border-right: 1px solid rgba(0,0,0,0.1); }
+.raw-header, .raw {
+    display: grid;
+    grid-template-columns: 120px 60px 1fr;
+}
+.raw-header .cell {
+    font-weight: bold;
+    background: #eee;
+}
+.cell-bar, .cell { border-top: 1px solid rgba(0,0,0,0.1); border-left: 1px solid rgba(0,0,0,0.1); }
+.cell-bar { display: flex; }
+.cell { padding: 5px; }
+.bar {
+    border: 1px solid rgba(0,0,0,0.1);
+    background: red;
+    height: 100%;
+    display: inline-block;
+}
+</style>
+</body>
+</html>
