@@ -48,6 +48,11 @@ const HTML_STAT_BEGIN = """
 </head>
 <body>
     <div class="stat-table">
+        <div class="raw-header">
+            <div class="cell">Дата</div>
+            <div class="cell">Виз.</div>
+            <div class="cell">График</div>
+        </div>    
 """
 
 const HTML_STAT_END = """
@@ -71,6 +76,43 @@ const HTML_STAT_END = """
     height: 100%;
     display: inline-block;
 }
+</style>
+</body>
+</html>
+"""
+
+const HTML_STAT_BEGIN2 = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+</head>
+<body>
+    <div class="stat-table">
+        <div class="raw-header">
+            <div class="cell">Дата</div>
+            <div class="cell">IP</div>
+            <div class="cell">JSON</div>
+        </div>    
+"""
+
+const HTML_STAT_END2 = """
+    </div>
+<style>
+.stat-table { border-bottom: 1px solid rgba(0,0,0,0.1); border-right: 1px solid rgba(0,0,0,0.1); }
+.raw-header, .raw {
+    display: grid;
+    grid-template-columns: 120px 60px 1fr;
+}
+.raw-header .cell {
+    font-weight: bold;
+    background: #eee;
+}
+.cell { border-top: 1px solid rgba(0,0,0,0.1); border-left: 1px solid rgba(0,0,0,0.1); }
+.cell { padding: 5px; }
 </style>
 </body>
 </html>
@@ -122,6 +164,27 @@ proc getCounter(req: Request) {.async.}  =
         echo "ERROR: " & e.msg
         "ERROR".resp
 
+proc getStatisticsFullSelf(req: Request) {.async.}  =
+    try:
+        var sHTML = HTML_STAT_BEGIN2
+        var sDBFile = getEnv("DB_HOST")
+        var db = open(sDBFile, "", "", "")
+
+        for aRow in db.fastRows(sql"SELECT strftime('%Y-%m-%d',timestamp) as d, ip, json FROM visitors ORDER BY timestamp"):
+            sHTML = sHTML & fmt"""
+                <div class="raw">
+                    <div class="cell">{aRow[0]}</div>
+                    <div class="cell">{aRow[1]}</div>
+                    <div class="cell">{aRow[2]}</div>
+                </div>
+            """
+
+        sHTML = sHTML & HTML_STAT_END2
+        echo sHTML
+    except CatchableError as e:
+        echo "ERROR: " & e.msg
+        "ERROR".resp
+
 proc getStatisticsSelf(req: Request) {.async.}  =
     try:
         var sHTML = HTML_STAT_BEGIN
@@ -141,6 +204,7 @@ proc getStatisticsSelf(req: Request) {.async.}  =
 """
 
         sHTML = sHTML & HTML_STAT_END
+        echo sHTML
     except CatchableError as e:
         echo "ERROR: " & e.msg
         "ERROR".resp
@@ -212,6 +276,7 @@ proc main() =
     app.get("/", getCounter)
     # app.get("/mp4", getCounterMP4)
     app.get("/statstics_self", getStatisticsSelf)
+    app.get("/statstics_self_full", getStatisticsFullSelf)
 
     app.run()
 
